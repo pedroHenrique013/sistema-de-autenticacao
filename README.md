@@ -27,6 +27,7 @@ Este é um servidor Node.js simples usando o Express para lidar com o registro d
 - Use o endpoint `/users` para visualizar todos os usuários registrados.
 - Use o endpoint `/users` com método POST para registrar um novo usuário. Envie um JSON com o nome e a senha do usuário no corpo da requisição.
 - Use o endpoint `/users/login` com método POST para fazer login. Envie um JSON com o nome e a senha do usuário no corpo da requisição.
+- Para fazer chamadas com metodos http com o arquivo request.rest utilize a extensão REST CLIENT do VSCODE
 
 ## Funcionalidades
 
