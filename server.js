@@ -12,10 +12,18 @@ app.get("/users", (req, res) => {
 
 app.post("/users", async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = { name: req.body.name, password: hashedPassword };
-    users.push(user);
-    res.status(201).send("Usuario cadastrado com sucesso!");
+    const userName = req.body.name;
+    const userExists = users.some(user => user.name === userName);
+    
+    if (userExists) {
+      return res.status(400).send("O usuário já existe!");
+    } else {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const user = { name: userName, password: hashedPassword };
+      
+      users.push(user);
+      res.status(201).send("Usuário cadastrado com sucesso!");
+    }
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -28,7 +36,8 @@ app.post("/users/login", async (req, res) => {
   }
 
   try {
-    if (await bcrypt.compare(req.body.password, user.password)) {
+    const password = await bcrypt.compare(req.body.password, user.password)
+    if (password) {
       res.send("Login feito com sucesso");
     } else {
       res.send("Senha incorreta");
