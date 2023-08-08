@@ -1,6 +1,8 @@
 const express = require("express");
-const app = express();
 const bcrypt = require("bcrypt");
+
+const app = express();
+const PORT = 8080;
 
 app.use(express.json());
 
@@ -14,37 +16,41 @@ app.post("/users", async (req, res) => {
   try {
     const userName = req.body.name;
     const userExists = users.some(user => user.name === userName);
-    
+
     if (userExists) {
-      return res.status(400).send("O usuário já existe!");
-    } else {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const user = { name: userName, password: hashedPassword };
-      
-      users.push(user);
-      res.status(201).send("Usuário cadastrado com sucesso!");
+      return res.status(400).json({ error: "Usuário já existe!" });
     }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = { name: userName, password: hashedPassword };
+    users.push(newUser);
+
+    res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
 app.post("/users/login", async (req, res) => {
-  const user = users.find((user) => user.name === req.body.name);
+  const user = users.find(user => user.name === req.body.name);
+
   if (!user) {
-    return res.status(400).send("Não foi encontrado o usuario");
+    return res.status(400).json({ error: "Usuário não encontrado" });
   }
 
   try {
-    const password = await bcrypt.compare(req.body.password, user.password)
-    if (password) {
-      res.send("Login feito com sucesso");
+    const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (passwordMatch) {
+      res.json({ message: "Login feito com sucesso" });
     } else {
-      res.send("Senha incorreta");
+      res.status(401).json({ error: "Senha incorreta" });
     }
-  } catch {
-    res.status(500).send();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-app.listen(8080);
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
