@@ -19,7 +19,7 @@ Este é um servidor Node.js simples usando o Express para lidar com o registro d
 
 3. Execute o servidor:
    ```bash
-   node server.js
+   npm run dev
    ```
 
 ## Uso
@@ -50,23 +50,6 @@ Se tiver alguma dúvida ou precisar entrar em contato, envie um e-mail para henr
 
 Versão mais recente: 1.0.0
 Estado: Concluído
-
-## FAQ (Perguntas Frequentes)
-
-1. **Como posso alterar a porta em que o servidor está ouvindo?**
-   Por padrão, o servidor está configurado para ouvir na porta 8080. Para alterar a porta, edite o arquivo `server.js` e modifique o número da porta na última linha do arquivo:
-
-   ```javascript
-   app.listen(8080);
-   ```
-
-   Substitua `8080` pelo número da porta desejada.
-
-2. **É seguro armazenar senhas no array `users` em memória?**
-   Este exemplo é apenas para fins de demonstração. Em um ambiente de produção, é altamente recomendável armazenar as informações dos usuários em um banco de dados seguro em vez de em memória.
-
-3. **Posso usar esse código em produção?**
-   Este código é apenas um exemplo básico e pode não estar pronto para ser usado em produção. Para um ambiente de produção, é necessário considerar questões de segurança, desempenho e escalabilidade, além de implementar recursos adicionais, como gerenciamento de sessões e autenticação mais robusta.
 
 ## Histórico de Versões
 
