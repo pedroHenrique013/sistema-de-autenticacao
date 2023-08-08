@@ -4,7 +4,7 @@
   "description": "Sistema de Autentição",
   "main": "index.js",
   "scripts": {
-    "dev": " nodemon server.js"
+    "dev": " nodemon ./app/app.js"
   },
   "author": "Pedro Henrique",
   "license": "MIT",
