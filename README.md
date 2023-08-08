@@ -19,7 +19,7 @@ Este é um servidor Node.js simples usando o Express para lidar com o registro d
 
 3. Execute o servidor:
    ```bash
-   node server.js
+   npm run dev
    ```
 
 ## Uso
